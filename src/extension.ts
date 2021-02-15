@@ -6,6 +6,7 @@ function switchTheme() {
   const userThemes: {
     label: string;
     uiTheme: string;
+    id?: string;
   }[] =
     vscode.extensions.all
       .map((ext) => ext.packageJSON.contributes?.themes || [])
@@ -14,15 +15,21 @@ function switchTheme() {
         []
       ) || [];
   const newTheme = userThemes[Math.floor(Math.random() * userThemes.length)];
-  userConfig.update("workbench.colorTheme", newTheme.label, true);
+  userConfig.update(
+    "workbench.colorTheme",
+    newTheme.id || newTheme.label,
+    true
+  );
 
   const userFont: string = userConfig.get("editor.fontFamily") || "";
-  const newUserFonts = userFont
-    .split(",")
-    .map((f) => f.trim())
-    .sort(() => 0.5 - Math.random())
-    .join(", ");
-  userConfig.update("editor.fontFamily", newUserFonts, true);
+  if (userFont) {
+    const newUserFonts = userFont
+      .split(",")
+      .map((f) => f.trim())
+      .sort(() => 0.5 - Math.random())
+      .join(", ");
+    userConfig.update("editor.fontFamily", newUserFonts, true);
+  }
 }
 
 export function activate(context: vscode.ExtensionContext) {

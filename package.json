@@ -2,7 +2,7 @@
 	"name": "vscode-chameleon",
 	"displayName": "Chameleon",
 	"description": "Randomize the theme and font on startup",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "timdeschryver",
 	"license": "MIT",
 	"repository": {
