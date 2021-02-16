@@ -1,8 +1,8 @@
 {
   "name": "vscode-chameleon",
   "displayName": "Chameleon",
-  "description": "Randomize the theme and font on startup",
-  "version": "0.0.3",
+  "description": "Randomize your theme, font and icons on startup",
+  "version": "0.0.4",
   "publisher": "timdeschryver",
   "license": "MIT",
   "repository": {
@@ -10,9 +10,7 @@
     "url": "https://github.com/timdeschryver/vscode-chameleon.git"
   },
   "homepage": "https://github.com/timdeschryver/vscode-chameleon/blob/main/README.md",
-  "engines": {
-    "vscode": "^1.53.0"
-  },
+  "icon": "resources/chameleon.png",
   "categories": [
     "Other"
   ],
@@ -27,6 +25,9 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
+  "engines": {
+    "vscode": "^1.53.0"
+  },
   "contributes": {
     "commands": [
       {

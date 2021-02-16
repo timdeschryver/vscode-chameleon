@@ -1,4 +1,4 @@
-# Chameleon
+# 🦎 Chameleon
 
 Receive a new look every time you open Visual Studio Code:
 
