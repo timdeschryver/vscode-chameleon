@@ -34,7 +34,18 @@
         "command": "chameleon.switchLook",
         "title": "Chameleon: Switch to another look"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Chameleon",
+      "type": "object",
+      "properties": {
+        "chameleon.themes": {
+          "type": "array",
+          "default": [],
+          "description": "Specifies the preferred color themes to loop through"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
