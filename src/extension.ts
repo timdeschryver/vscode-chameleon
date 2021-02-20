@@ -1,21 +1,11 @@
 import * as vscode from "vscode";
+import { getColorThemes } from "./getColorThemes";
+import { IIconThemes } from "./IThemes";
 
 function switchLook() {
   const userConfig = vscode.workspace.getConfiguration();
 
-  const colorThemes: {
-    label: string;
-    uiTheme: string;
-    id?: string;
-  }[] = vscode.extensions.all
-    .map((ext) => ext.packageJSON.contributes?.themes || [])
-    .reduce(
-      (allColorThemes, packageColorThemes) => [
-        ...allColorThemes,
-        ...packageColorThemes,
-      ],
-      []
-    );
+  const colorThemes = getColorThemes();
   const colorTheme =
     colorThemes[Math.floor(Math.random() * colorThemes.length)];
   userConfig.update(
@@ -28,27 +18,25 @@ function switchLook() {
   if (fonts) {
     const font = fonts
       .split(",")
-      .map((f) => f.trim())
+      .map(f => f.trim())
       .sort(() => 0.5 - Math.random())
       .join(", ");
     userConfig.update("editor.fontFamily", font, true);
   }
 
-  const productIconThemes: {
-    label: string;
-    id: string;
-  }[] = [
+  const productIconThemes: IIconThemes[] = [
     { label: "Default", id: "Default" },
     ...vscode.extensions.all
-      .map((ext) => ext.packageJSON.contributes?.productIconThemes || [])
+      .map(ext => ext.packageJSON.contributes?.productIconThemes || [])
       .reduce(
         (allProductIcons, packageIcons) => [
           ...allProductIcons,
-          ...packageIcons,
+          ...packageIcons
         ],
         []
-      ),
+      )
   ];
+
   const productIconTheme =
     productIconThemes[Math.floor(Math.random() * productIconThemes.length)];
   userConfig.update(
@@ -57,11 +45,8 @@ function switchLook() {
     true
   );
 
-  const iconThemes: {
-    label: string;
-    id: string;
-  }[] = vscode.extensions.all
-    .map((ext) => ext.packageJSON.contributes?.iconThemes || [])
+  const iconThemes: IIconThemes[] = vscode.extensions.all
+    .map(ext => ext.packageJSON.contributes?.iconThemes || [])
     .reduce((allIcons, packageIcons) => [...allIcons, ...packageIcons], []);
   const iconTheme = iconThemes[Math.floor(Math.random() * iconThemes.length)];
   userConfig.update(
@@ -76,6 +61,13 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand("chameleon.switchLook", () => {
+      switchLook();
+    }),
+
+    vscode.workspace.onDidChangeConfiguration(event => {
+      if (!event.affectsConfiguration("chameleon")) {
+        return;
+      }
       switchLook();
     })
   );
