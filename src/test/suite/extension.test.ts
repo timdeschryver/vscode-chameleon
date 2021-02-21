@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { describe, it, before } from "mocha";
+import { useFakeTimers } from "sinon";
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
@@ -42,11 +43,50 @@ describe("vscode-chameleon extension tests", () => {
       .true);
 
   it("should allow users specify interval to switch to the next theme", async () => {
-    await vscode.workspace
-      .getConfiguration("chameleon")
-      .update("interval", 1, true);
+    const chameleonConfig = vscode.workspace.getConfiguration("chameleon");
+
+    await chameleonConfig.update("interval", 1, true);
     expect(
       vscode.workspace.getConfiguration("chameleon").get("interval")
     ).to.equal(1);
+
+    await chameleonConfig.update("interval", undefined, true);
+  });
+
+  it("should switch to the next theme after specified interval", async function () {
+    this.timeout(1 * 3 * 1000);
+    const chameleonConfig = vscode.workspace.getConfiguration("chameleon");
+    const workbenchConfig = vscode.workspace.getConfiguration("workbench");
+
+    const prevColorTheme = workbenchConfig.get("colorTheme");
+    let nextColorTheme!: string | undefined;
+
+    const allColorThemes = vscode.extensions.all
+      .map(ext => ext.packageJSON.contributes?.themes || [])
+      .reduce(
+        (allColorThemes, packageColorTheme) => [
+          ...allColorThemes,
+          ...packageColorTheme
+        ],
+        []
+      );
+
+    const randomGen = () =>
+      allColorThemes[Math.floor(Math.random() * allColorThemes.length)].label;
+    const randomColorThemes = [randomGen(), randomGen()];
+
+    await chameleonConfig.update("interval", 1, true);
+    await chameleonConfig.update("exclude.themes", randomColorThemes, true);
+
+    const clock = useFakeTimers();
+    setTimeout(() => {
+      nextColorTheme = workbenchConfig.get("colorTheme");
+    }, 1 * 60 * 60 * 1000 + 1 * 2 * 1000);
+
+    await clock.tickAsync("01:00:00");
+    expect(nextColorTheme).to.not.equal(prevColorTheme);
+
+    await chameleonConfig.update("interval", undefined, true);
+    await chameleonConfig.update("exclude.themes", undefined, true);
   });
 });

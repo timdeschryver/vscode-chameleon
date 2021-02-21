@@ -1,7 +1,7 @@
 import { workspace, extensions } from "vscode";
 import { IColorThemes } from "./IThemes";
 
-export function getColorThemes(): IColorThemes[] {
+export default function getColorThemes(): IColorThemes[] {
   const excludedThemes: string[] | undefined = workspace
     .getConfiguration("chameleon")
     .get("exclude.themes");
