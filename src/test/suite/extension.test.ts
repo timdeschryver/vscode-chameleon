@@ -1,10 +1,7 @@
 import { expect } from 'chai'
 import { describe, it, before } from 'mocha'
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode'
-// import * as myExtension from '../../extension';
 
 describe('vscode-chameleon extension tests', () => {
   before(() => {
