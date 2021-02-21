@@ -2,7 +2,7 @@
   "name": "vscode-chameleon",
   "displayName": "Chameleon",
   "description": "Randomize your theme, font and icons on startup",
-  "version": "0.0.4",
+  "version": "0.0.0-development",
   "publisher": "timdeschryver",
   "license": "MIT",
   "repository": {
@@ -39,10 +39,25 @@
       "title": "Chameleon",
       "type": "object",
       "properties": {
-        "chameleon.exclude.themes": {
+        "chameleon.excludedThemes": {
           "type": "array",
           "default": [],
-          "description": "Specify the color themes to exclude"
+          "description": "Specify the color themes to exclude (add default to exclude the default themes)"
+        },
+        "chameleon.uiTheme": {
+          "type": "string",
+          "enum": [
+            "all",
+            "light",
+            "dark"
+          ],
+          "default": "all",
+          "enumDescriptions": [
+            "Use all themes",
+            "Only use light themes",
+            "Only use dark themes"
+          ],
+          "description": "Specify the ui theme to use"
         }
       }
     }

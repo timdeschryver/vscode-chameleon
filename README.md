@@ -6,3 +6,27 @@ Receive a new look every time you open Visual Studio Code:
 - Configured fonts from the `editor.fontFamily` setting will be shuffled (comma-separated) in order to use a different font
 - A random icon theme from all of the installed icon themes in the `workbench.iconTheme` setting
 - A random product icon theme from all of the installed product icon themes in the `workbench.productIconTheme` setting
+
+## Options
+
+### chameleon.excludedThemes
+
+By default, **🦎 Chameleon** rotates through all installed themes.
+If you have a theme that you don't want to use, you can add the theme to the `chameleon.excludedThemes` option. To exclude all the built-in VSCode themes, add `default` to this options.
+
+```json
+{
+  "chameleon.excludedThemes": ["default", "theme1", "theme2"]
+}
+```
+
+### chameleon.uiTheme
+
+To only use `dark` or `light` themes, use the `chameleon.uiTheme` option.
+If you want to use all the themes, either remove the option or assign it to `all`.
+
+```json
+{
+  "chameleon.uiTheme": "dark"
+}
+```
