@@ -39,10 +39,10 @@
       "title": "Chameleon",
       "type": "object",
       "properties": {
-        "chameleon.themes": {
+        "chameleon.exclude.themes": {
           "type": "array",
           "default": [],
-          "description": "Specifies the preferred color themes to switch to"
+          "description": "Specify the color themes to exclude"
         }
       }
     }

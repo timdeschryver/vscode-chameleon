@@ -2,9 +2,9 @@ import { workspace, extensions } from "vscode";
 import { IColorThemes } from "./IThemes";
 
 export function getColorThemes(): IColorThemes[] {
-  const colorThemes: string[] | undefined = workspace
+  const excludedThemes: string[] | undefined = workspace
     .getConfiguration("chameleon")
-    .get("themes");
+    .get("exclude.themes");
 
   const allColorThemes: IColorThemes[] = extensions.all
     .map(ext => ext.packageJSON.contributes?.themes || [])
@@ -16,7 +16,9 @@ export function getColorThemes(): IColorThemes[] {
       []
     );
 
-  return colorThemes && colorThemes.length !== 0
-    ? allColorThemes.filter(themes => colorThemes.indexOf(themes.label) >= 0)
+  return excludedThemes && excludedThemes.length !== 0
+    ? allColorThemes.filter(
+        themes => excludedThemes.indexOf(themes.label) === -1
+      )
     : allColorThemes;
 }

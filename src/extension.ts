@@ -65,10 +65,10 @@ export function activate(context: vscode.ExtensionContext) {
     }),
 
     vscode.workspace.onDidChangeConfiguration(event => {
-      if (!event.affectsConfiguration("chameleon")) {
-        return;
+      if (event.affectsConfiguration("chameleon")) {
+        switchLook();
       }
-      switchLook();
+      return;
     })
   );
 }

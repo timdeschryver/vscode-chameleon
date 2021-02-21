@@ -17,10 +17,11 @@ describe("vscode-chameleon extension tests", () => {
 
   it("should be activated", function () {
     this.timeout(1 * 60 * 1000);
-    const ext = vscode.extensions.getExtension("timdeschryver.vscode-chameleon")
-      ?.isActive;
+    const isActive = vscode.extensions.getExtension(
+      "timdeschryver.vscode-chameleon"
+    )?.isActive;
 
-    expect(ext).to.be.true;
+    expect(isActive).to.be.true;
   });
 
   it("should register all chameleon commands", async () => {
@@ -33,6 +34,6 @@ describe("vscode-chameleon extension tests", () => {
   });
 
   it("should allow users to define themes to switch to", () =>
-    expect(vscode.workspace.getConfiguration("chameleon").has("themes")).to.be
-      .true);
+    expect(vscode.workspace.getConfiguration("chameleon").has("exclude.themes"))
+      .to.be.true);
 });
