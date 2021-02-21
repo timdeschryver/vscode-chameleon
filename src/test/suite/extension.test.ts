@@ -36,4 +36,17 @@ describe("vscode-chameleon extension tests", () => {
   it("should allow users to define themes to switch to", () =>
     expect(vscode.workspace.getConfiguration("chameleon").has("exclude.themes"))
       .to.be.true);
+
+  it("should have interval section", () =>
+    expect(vscode.workspace.getConfiguration("chameleon").has("interval")).to.be
+      .true);
+
+  it("should allow users specify interval to switch to the next theme", async () => {
+    await vscode.workspace
+      .getConfiguration("chameleon")
+      .update("interval", 1, true);
+    expect(
+      vscode.workspace.getConfiguration("chameleon").get("interval")
+    ).to.equal(1);
+  });
 });

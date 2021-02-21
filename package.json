@@ -43,6 +43,11 @@
           "type": "array",
           "default": [],
           "description": "Specify the color themes to exclude"
+        },
+        "chameleon.interval": {
+          "type": "number",
+          "default": 0,
+          "description": "Time (in hours) it takes to switch to the next theme. Zero means on next startup"
         }
       }
     }
