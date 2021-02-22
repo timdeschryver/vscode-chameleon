@@ -2,7 +2,7 @@
   "name": "vscode-chameleon",
   "displayName": "Chameleon",
   "description": "Randomize your theme, font and icons on startup",
-  "version": "0.0.4",
+  "version": "0.0.0-development",
   "publisher": "timdeschryver",
   "license": "MIT",
   "repository": {
@@ -39,43 +39,62 @@
       "title": "Chameleon",
       "type": "object",
       "properties": {
-        "chameleon.exclude.themes": {
+        "chameleon.excludedThemes": {
           "type": "array",
           "default": [],
-          "description": "Specify the color themes to exclude"
+          "description": "Specify the color themes to exclude (add default to exclude the default themes)"
         },
-        "chameleon.interval": {
+        "chameleon.switchInterval": {
           "type": "number",
           "default": 0,
-          "description": "Time (in hours) it takes to switch to the next theme. Zero is disabled (next startup)"
+          "description": "Specify the time (in hours) to switch to the next theme. Zero is disabled (next startup)"
+        },
+        "chameleon.uiTheme": {
+          "type": "string",
+          "enum": [
+            "all",
+            "light",
+            "dark"
+          ],
+          "default": "all",
+          "enumDescriptions": [
+            "Use all themes",
+            "Only use light themes",
+            "Only use dark themes"
+          ],
+          "description": "Specify the ui theme to use"
         }
       }
+    },
+    "private": true,
+    "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "pretest": "npm run compile && npm run lint",
+      "lint": "eslint src --ext ts",
+      "test": "node ./out/test/runTest.js",
+      "semantic-release": "semantic-release"
+    },
+    "devDependencies": {
+      "@semantic-release/exec": "^5.0.0",
+      "@types/babel__core": "^7.1.12",
+      "@types/chai": "^4.2.15",
+      "@types/glob": "^7.1.3",
+      "@types/mocha": "^8.0.4",
+      "@types/node": "^12.11.7",
+      "@types/sinon": "^9.0.10",
+      "@types/vscode": "^1.53.0",
+      "@typescript-eslint/eslint-plugin": "^4.14.1",
+      "@typescript-eslint/parser": "^4.14.1",
+      "chai": "^4.3.0",
+      "eslint": "^7.19.0",
+      "glob": "^7.1.6",
+      "mocha": "^8.2.1",
+      "sinon": "^9.2.4",
+      "semantic-release": "^17.3.9",
+      "typescript": "^4.1.3",
+      "vscode-test": "^1.5.0"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/babel__core": "^7.1.12",
-    "@types/chai": "^4.2.15",
-    "@types/glob": "^7.1.3",
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^12.11.7",
-    "@types/sinon": "^9.0.10",
-    "@types/vscode": "^1.53.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
-    "chai": "^4.3.0",
-    "eslint": "^7.19.0",
-    "glob": "^7.1.6",
-    "mocha": "^8.2.1",
-    "sinon": "^9.2.4",
-    "typescript": "^4.1.3",
-    "vscode-test": "^1.5.0"
   }
 }

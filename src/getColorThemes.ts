@@ -1,24 +1,37 @@
-import { workspace, extensions } from "vscode";
-import { IColorThemes } from "./IThemes";
+import { workspace, extensions } from 'vscode'
+import { ColorTheme } from './types'
 
-export default function getColorThemes(): IColorThemes[] {
-  const excludedThemes: string[] | undefined = workspace
-    .getConfiguration("chameleon")
-    .get("exclude.themes");
+export default function getColorThemes(): ColorTheme[] {
+  const options = workspace.getConfiguration('chameleon')
+  const excludedThemes: string[] = options.get('excludedThemes') || []
+  const uiTheme: string = options.get('uiTheme') || 'all'
+  const uiThemeConfig: Record<string, string> = {
+    light: 'vs',
+    dark: 'vs-dark',
+  }
+  const ignoreDefaultThemes = excludedThemes.includes('default')
 
-  const allColorThemes: IColorThemes[] = extensions.all
-    .map(ext => ext.packageJSON.contributes?.themes || [])
+  const excludeDefaultThemes = (theme: ColorTheme) =>
+    !ignoreDefaultThemes || !theme.path.startsWith('./themes/')
+
+  const excludeExcludedThemes = (theme: ColorTheme) =>
+    !excludedThemes.includes(theme.label)
+
+  const excludeUiThemes = (theme: ColorTheme) =>
+    (uiThemeConfig[uiTheme] || theme.uiTheme) === theme.uiTheme
+
+  const colorThemes: ColorTheme[] = extensions.all
+    .map((ext) => ext.packageJSON.contributes?.themes || [])
     .reduce(
       (allColorThemes, packageColorTheme) => [
         ...allColorThemes,
-        ...packageColorTheme
+        ...packageColorTheme,
       ],
-      []
-    );
+      [],
+    )
+    .filter(excludeDefaultThemes)
+    .filter(excludeExcludedThemes)
+    .filter(excludeUiThemes)
 
-  return excludedThemes && excludedThemes.length !== 0
-    ? allColorThemes.filter(
-        themes => excludedThemes.indexOf(themes.label) === -1
-      )
-    : allColorThemes;
+  return colorThemes
 }
