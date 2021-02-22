@@ -2,7 +2,7 @@ import { workspace, extensions } from 'vscode'
 import getColorThemes from './getColorThemes'
 import { ColorTheme } from './types'
 
-export default function chameleonSwitch(): void {
+export default function chameleonSwitch() {
   const userConfig = workspace.getConfiguration()
 
   const colorThemes = getColorThemes()
