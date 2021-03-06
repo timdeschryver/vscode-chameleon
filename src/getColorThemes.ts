@@ -1,7 +1,7 @@
 import { workspace, extensions } from 'vscode'
 import { ColorTheme } from './types'
 
-export function getColorThemes(): ColorTheme[] {
+export default function getColorThemes(): ColorTheme[] {
   const options = workspace.getConfiguration('chameleon')
   const excludedThemes: string[] = options.get('excludedThemes') || []
   const uiTheme: string = options.get('uiTheme') || 'all'
