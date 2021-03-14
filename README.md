@@ -30,3 +30,16 @@ If you want to use all the themes, either remove the option or assign it to `all
   "chameleon.uiTheme": "dark"
 }
 ```
+
+### chameleon.switchInterval
+To specify the time (in hours) it takes to switch to the next theme, use the `chameleon.switchInterval` option.
+If you want to keep the default action which is next startup assign it to `0`.
+
+
+For example if you want chameleon to switch your themes every five hours you set it to 5.
+
+```json
+{
+  "chameleon.switchInterval": 5
+}
+```
