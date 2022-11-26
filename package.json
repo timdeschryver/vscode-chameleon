@@ -39,6 +39,26 @@
       "title": "Chameleon",
       "type": "object",
       "properties": {
+        "chameleon.disableRotatingFont": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the rotation of fonts"
+        },
+        "chameleon.disableRotatingIconTheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the rotation of icons"
+        },
+        "chameleon.disableRotatingProductIconTheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the rotation of product icon themes"
+        },
+        "chameleon.disableRotatingColorTheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the rotation of themes"
+        },
         "chameleon.excludedThemes": {
           "type": "array",
           "default": [],

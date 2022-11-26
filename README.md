@@ -32,14 +32,54 @@ If you want to use all the themes, either remove the option or assign it to `all
 ```
 
 ### chameleon.switchInterval
+
 To specify the time (in hours) it takes to switch to the next theme, use the `chameleon.switchInterval` option.
 If you want to keep the default action which is next startup assign it to `0`.
-
 
 For example if you want chameleon to switch your themes every five hours you set it to 5.
 
 ```json
 {
   "chameleon.switchInterval": 5
+}
+```
+
+### chameleon.disableRotatingColorTheme
+
+If set to `true` it keeps the same color theme, while rotating between the other settings.
+
+```json
+{
+  "chameleon.disableRotatingColorTheme": true
+}
+```
+
+### chameleon.disableRotatingFont
+
+If set to `true` it keeps the same font family, while rotating between the other settings.
+
+```json
+{
+  "chameleon.disableRotatingFont": true
+}
+```
+
+### chameleon.disableRotatingIconTheme
+
+If set to `true` it keeps the same iconset, while rotating between the other settings.
+
+```json
+{
+  "chameleon.disableRotatingIconTheme": true
+}
+```
+
+### chameleon.disableRotatingProductIconTheme
+
+If set to `true` it keeps the same product icon theme, while rotating between the other settings.
+
+```json
+{
+  "chameleon.disableRotatingProductIconTheme": true
 }
 ```
