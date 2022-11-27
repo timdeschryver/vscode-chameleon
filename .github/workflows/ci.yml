@@ -26,9 +26,9 @@ jobs:
           node-version: 16.x
       - name: install
         run: npm install
-      - run: xvfb-run -a npm test
+      - run: xvfb-run -a npm run compile
         if: runner.os == 'Linux'
-      - run: npm test
+      - run: npm run compile
         if: runner.os != 'Linux'
       - name: GitHub Release
         if: github.repository == 'timdeschryver/vscode-chameleon' && github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
